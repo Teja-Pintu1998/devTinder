@@ -10,3 +10,5 @@ git initialization, adding files to git, committing the files, setting up remote
 order of routes matters. play with diff routes using app.use middleware
 
 install postman, create workspace,collection and try making calls using http methods. try with use,get,post,delete and patch and test in all scenarios. 
+
+explore advances routing techniques like using ?,* and regex in url path and also learn diff between req.params and req.query
