@@ -22,3 +22,5 @@ implement authentication using app.use.
 app.use vs app.all
 
 create dummy authorization middlewares
+
+errror handling and also try app.use with err parameter and without and change the position of app.use and check - interesting

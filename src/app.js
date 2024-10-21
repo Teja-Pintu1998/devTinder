@@ -1,21 +1,28 @@
 const express = require("express");
 const app = express(); //This creates an instance of web server.
-const {adminAuth, userAuth} = require("./middlewares/auth");
 
-
-app.use("/admin", adminAuth);
-
-
-app.get("/user", userAuth, (req, res, next) => {
-  res.send("User data sent");
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    res.status(500).send("something went wrong ");
+  }
 });
 
-app.get("/admin/getAllData", (req, res, next) => {
-  res.send("All data sent");
+app.get("/getUserData", (req, res, next) => {
+  try {
+    //logic of making db call and getting user data
+    throw new Error("error man");
+    //next();
+    res.send("User data sent");
+  } catch (err){
+    next(err)
+    //res.status(500).send(err.message);
+  }
 });
 
-app.get("/admin/deleteUser", (req, res, next) => {
-  res.send("Deleted User");
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    res.status(500).send("something went wrong ");
+  }
 });
 
 app.listen(3000, () => {
