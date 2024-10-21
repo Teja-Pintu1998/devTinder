@@ -1,21 +1,22 @@
 const express = require("express");
 const app = express(); //This creates an instance of web server.
+const {adminAuth, userAuth} = require("./middlewares/auth");
 
 
-app.use("/login",(req,res,next)=>{
-  console.log("logged in successfully");
-  
-  next();
-  res.send("sent user data RHF 1");  
-},(req,res,next)=>{
-  console.log("logged twice in successfully");
-  res.send("sent user data RHF 2");
-  next();
-})
+app.use("/admin", adminAuth);
 
-app.get("/login/user",(req,res,next)=>{
-  res.send("sent user data");
-})
+
+app.get("/user", userAuth, (req, res, next) => {
+  res.send("User data sent");
+});
+
+app.get("/admin/getAllData", (req, res, next) => {
+  res.send("All data sent");
+});
+
+app.get("/admin/deleteUser", (req, res, next) => {
+  res.send("Deleted User");
+});
 
 app.listen(3000, () => {
   console.log("Server is successfully listening on the port 3000");

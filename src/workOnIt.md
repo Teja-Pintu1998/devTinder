@@ -14,3 +14,11 @@ install postman, create workspace,collection and try making calls using http met
 explore advances routing techniques like using ?,* and regex in url path and also learn diff between req.params and req.query.
 
 try using multiple RHFs in app.use and also use next() in dufferent places and check the responses in client-side. try putting next() before res.send and observe the output.
+
+middlewares and RHF and how expreejs handles requests behind the scenes i.e; sequence of execution.
+
+implement authentication using app.use.
+
+app.use vs app.all
+
+create dummy authorization middlewares
