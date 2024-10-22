@@ -34,4 +34,8 @@ A **model** in frameworks like **Mongoose** (for MongoDB) is a tool that ensures
 
 create a "/signup"  route and try to post any userdata into the database using post http method, learn how to create a new user model object and insert data into it and saving it into the database.
 
-use of express.json => takes the body from the request which is in the json format and converts it into jsobject and puts this back in to the request body. 
+use of express.json => takes the body from the request which is in the json format and converts it into jsobject and puts this back in to the request body.
+
+find out how find() and findOne() works with duplicate entries.
+
+build /user and /feed routes

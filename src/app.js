@@ -6,6 +6,7 @@ const User = require("./models/user");
 
 app.use(express.json()); //this middleware runs for every request, thismiddleware converts json format to  js object and put this js object format into the request
 
+//signin-up new user
 app.post("/signup", async (req, res) => {
   const user = new User(req.body); //This line creates a new user object based on the User model (schema). The userObj contains the actual data (like first name, last name, email, and password).Think of it as preparing a new user profile to be saved in the database. You’re saying, “Here’s the user data I want to save.” This is similar to creating a row in sql just the same way we create the document here and pass the data of userObj.
   //console.log(req.body)
@@ -17,6 +18,46 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+//trying to get only one user data using the emailId
+app.get("/user", async (req, res) => { 
+  const userEmail = req.body.emailId;
+
+  // try {
+  //   const users = await User.find({ emailId: userEmail });
+
+  //   if (users.length === 0) {
+  //     res.send("User not found");
+  //   } else {
+  //     res.send(users);
+  //   }
+  // } catch (err) {
+  //   console.error("Error fetching user:", err);
+  //   res.status(400).send("Something went wrong");
+  // }
+
+  try {
+    const user = await User.findOne({ emailId: userEmail });
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send(user);
+    }
+  } catch (err) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
+//feed API - Get /feed - get all the users from the database
+app.get("/feed", async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.send(users);
+  } catch (err) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
+//connecting to DB and then to server
 connectDB()
   .then(() => {
     console.log("Database connection established successfully");
