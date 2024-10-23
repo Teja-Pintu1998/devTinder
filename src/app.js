@@ -19,7 +19,7 @@ app.post("/signup", async (req, res) => {
 });
 
 //trying to get only one user data using the emailId
-app.get("/user", async (req, res) => { 
+app.get("/user", async (req, res) => {
   const userEmail = req.body.emailId;
 
   // try {
@@ -55,6 +55,74 @@ app.get("/feed", async (req, res) => {
   } catch (err) {
     res.status(400).send("Something went wrong");
   }
+});
+
+//Delete API ---> deleting a user from the database
+app.delete("/user", async (req, res) => {
+  const userId = req.body.userId;
+  try {
+    //below we will find whether the user is found or not even before deleting him using his userId passed from the request body
+    const findUser = await User.findOne({ _id: userId });
+    if (findUser) {
+      //const user = await User.findByIdAndDelete({ _id: userId }); or we can also use the below one. Both these are same.
+      await User.findOneAndUpdate(userId);
+      res.send("User with id - " + userId + " deleted successfully");
+    } else {
+      res
+        .status(400)
+        .send("UserId doesn't exists or already might have deleted");
+    }
+  } catch (err) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
+//Update API using Ptach
+app.patch("/user/:userId", async (req, res) => {
+  const userId = req.params?.userId;
+  const data = req.body;
+
+  try {
+    const ALLOWED_updates = [
+      "about",
+      "gender",
+      "age",
+      "skills",
+      "lastName",
+    ];
+
+    const isUpdateAllowed = Object.keys(data).every((k) =>
+      ALLOWED_updates.includes(k)
+    );
+
+    if (!isUpdateAllowed) {
+      throw new Error("Update not allowed for this field");
+    }
+    if (data?.skills.length > 10) {
+      throw new Error("Skills cannot be more than 10");
+    }
+
+    const user = await User.findByIdAndUpdate(userId, data, {
+      returnDocument: "before",
+      runValidators: true,
+    });
+    console.log(user);
+    res.send("user updated successfully");
+  } catch (err) {
+    res.status(400).send("Update failed "+ err.message);
+  }
+  // try {
+  //   const findingUser = await User.findOne({ emailId: req.body.emailId });//validating whether the user is present or not with his emailId even before updating
+  //   if (findingUser) {
+  //     const user = await User.findByIdAndUpdate(userId, data, {returnDocument:"before"});
+  //     console.log(user + " this is the data before updating")
+  //     res.send("user details updated");
+  //   } else {
+  //     res.status(400).send("User doesn't exist with the emailId you provided");
+  //   }
+  // } catch (err) {
+  //   res.status(400).send("Something went wrong");
+  // }
 });
 
 //connecting to DB and then to server

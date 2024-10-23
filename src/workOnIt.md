@@ -39,3 +39,16 @@ use of express.json => takes the body from the request which is in the json form
 find out how find() and findOne() works with duplicate entries.
 
 build /user and /feed routes
+
+create the delete API . before deleting try to find whether the user is even present inthe database . if present, then only delete.
+
+PUT - replaces entire resourses with the new data we sent. If you use PUT, you must send all the data for the resource, even if you're just updating one field. Any missing fields will be removed or replaced with default values.
+Example: If you update a user's email using PUT, you need to send the full user object (like their name, email, and password), not just the email.
+
+PATCH - Partially updates the resource. It modifies only the fields you specify, leaving the rest of the resource unchanged.
+Use PATCH when you want to update just one or a few fields without affecting the entire resource.
+Example: If you want to update just the user's email, you can send only the email field with PATCH, and the rest of the user's data stays the same.
+
+Explore schema type options and add validate functions, timestamps......etc to the user schema.
+
+API level validations on post and patch APIs for each field
