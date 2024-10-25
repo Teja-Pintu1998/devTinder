@@ -51,4 +51,6 @@ Example: If you want to update just the user's email, you can send only the emai
 
 Explore schema type options and add validate functions, timestamps......etc to the user schema.
 
-API level validations on post and patch APIs for each field
+API level validations on post and patch APIs for each field.
+
+Use of validator , an npm package to check validations.

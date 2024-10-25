@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -15,7 +16,12 @@ const userSchema = new mongoose.Schema({
         required: true, //this feild is required
         lowerxase:true,
         trim:true, 
-        unique: true, //this will not allow me to insert the same emailid once again 
+        unique: true, //this will not allow me to insert the same emailid once again.
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error("Invalid Email Address" + value);
+            }
+        }
     },
     password: {
         type: String,
