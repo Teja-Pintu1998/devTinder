@@ -53,4 +53,16 @@ Explore schema type options and add validate functions, timestamps......etc to t
 
 API level validations on post and patch APIs for each field.
 
-Use of validator , an npm package to check validations.
+Use of validator , an npm package to check validations bcoz we cant trust the details sent by the users.
+
+validate data in signup API.
+install bcrypt packags from npm and create a passwordHash using bcrypt.hash() and save the user with encrypted password i.e; req.body.assword = passwordHash.
+
+to read cookies we use cookieParser middleware. study about it.
+
+in stall jsonwebtoken from npm and do jwt.sign() in login API to create jwt token and then put this token into cookie using res.cookie() and then do jwt.verify() in \profile API to verify the token.
+
+why we write userAuth middleware and set expiration for token aswell as cookie.
+
+Create userSchema methods to get jwt and comparePassword
+
